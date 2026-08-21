@@ -8,13 +8,13 @@
   font-size: 1.125rem;
 }
 
-.imagePlaceholder {
+.image {
+  display: block;
+  width: 100%;
   aspect-ratio: 1.586 / 1;
   border: 1px solid #d1d5db;
   border-radius: 0.75rem;
-  background:
-    linear-gradient(135deg, transparent 48%, #e5e7eb 49%, #e5e7eb 51%, transparent 52%),
-    #f9fafb;
+  object-fit: contain;
 }
 
 .retakeButton {
