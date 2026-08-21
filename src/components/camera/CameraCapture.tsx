@@ -1,32 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useRef } from "react";
+import { useCamera } from "@/hooks/useCamera";
 import { CameraPreview } from "./CameraPreview";
 import { CapturedImage } from "./CapturedImage";
 import styles from "./CameraCapture.module.css";
 
-type CameraStatus = "idle" | "previewing" | "captured" | "error";
-
 const errorMessage = "カメラを起動できませんでした。権限を確認して、もう一度お試しください。";
 
 export function CameraCapture() {
-  const [status, setStatus] = useState<CameraStatus>("idle");
-
-  const startPreview = () => {
-    setStatus("previewing");
-  };
-
-  const showCapturedImage = () => {
-    setStatus("captured");
-  };
-
-  const retake = () => {
-    setStatus("previewing");
-  };
-
-  const retry = () => {
-    setStatus("idle");
-  };
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const { status, startCamera, markCaptured } = useCamera(videoRef);
 
   return (
     <section className={styles.capture} aria-labelledby="camera-title">
@@ -38,22 +22,26 @@ export function CameraCapture() {
       {status === "idle" && (
         <div className={styles.startPanel}>
           <div className={styles.placeholder} aria-hidden="true" />
-          <button className={styles.primaryButton} type="button" onClick={startPreview}>
+          <button className={styles.primaryButton} type="button" onClick={startCamera}>
             カメラを起動する
           </button>
         </div>
       )}
 
-      {status === "previewing" && (
-        <CameraPreview onCapture={showCapturedImage} />
+      {(status === "requesting" || status === "previewing") && (
+        <CameraPreview
+          videoRef={videoRef}
+          onCapture={markCaptured}
+          isRequesting={status === "requesting"}
+        />
       )}
 
-      {status === "captured" && <CapturedImage onRetake={retake} />}
+      {status === "captured" && <CapturedImage onRetake={startCamera} />}
 
       {status === "error" && (
         <div className={styles.errorPanel} role="alert">
           <p>{errorMessage}</p>
-          <button className={styles.secondaryButton} type="button" onClick={retry}>
+          <button className={styles.secondaryButton} type="button" onClick={startCamera}>
             もう一度試す
           </button>
         </div>
