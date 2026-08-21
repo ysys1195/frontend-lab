@@ -7,3 +7,9 @@ export type MockAnalysisResult = {
 export type AnalysisErrorResponse = {
   error: string;
 };
+
+export type AnalysisState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "success"; result: MockAnalysisResult }
+  | { status: "error"; message: string };
