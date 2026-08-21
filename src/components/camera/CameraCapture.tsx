@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useCamera } from "@/hooks/useCamera";
 import { calculateCropArea } from "@/lib/camera/calculateCropArea";
 import { captureImage } from "@/lib/camera/captureImage";
+import { createObjectUrl, revokeObjectUrl } from "@/lib/camera/objectUrl";
 import { CameraPreview } from "./CameraPreview";
 import { CapturedImage } from "./CapturedImage";
 import styles from "./CameraCapture.module.css";
@@ -12,10 +13,26 @@ export function CameraCapture() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const guideRef = useRef<HTMLDivElement>(null);
-  const [, setCapturedImage] = useState<Blob | null>(null);
+  const objectUrlRef = useRef<string | null>(null);
+  const [capturedImage, setCapturedImage] = useState<Blob | null>(null);
+  const [objectUrl, setObjectUrl] = useState<string | null>(null);
   const [isCapturing, setIsCapturing] = useState(false);
   const [captureError, setCaptureError] = useState<string | null>(null);
   const { status, error, startCamera, markCaptured } = useCamera(videoRef);
+
+  const releaseObjectUrl = useCallback(() => {
+    const currentObjectUrl = objectUrlRef.current;
+    objectUrlRef.current = null;
+    revokeObjectUrl(currentObjectUrl);
+    setObjectUrl(null);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      revokeObjectUrl(objectUrlRef.current);
+      objectUrlRef.current = null;
+    };
+  }, []);
 
   const handleCapture = async () => {
     const video = videoRef.current;
@@ -56,14 +73,26 @@ export function CameraCapture() {
         guideHeight: guideRect.height,
       });
       const blob = await captureImage({ video, cropArea });
+      const nextObjectUrl = createObjectUrl(blob);
+      const previousObjectUrl = objectUrlRef.current;
 
+      objectUrlRef.current = nextObjectUrl;
       setCapturedImage(blob);
+      setObjectUrl(nextObjectUrl);
+      revokeObjectUrl(previousObjectUrl);
       markCaptured();
     } catch {
       setCaptureError("画像を撮影できませんでした。もう一度お試しください。");
     } finally {
       setIsCapturing(false);
     }
+  };
+
+  const handleRetake = async () => {
+    releaseObjectUrl();
+    setCapturedImage(null);
+    setCaptureError(null);
+    await startCamera();
   };
 
   return (
@@ -94,7 +123,9 @@ export function CameraCapture() {
         />
       )}
 
-      {status === "captured" && <CapturedImage onRetake={startCamera} />}
+      {status === "captured" && capturedImage && objectUrl && (
+        <CapturedImage imageUrl={objectUrl} onRetake={() => void handleRetake()} />
+      )}
 
       {status === "error" && (
         <div className={styles.errorPanel} role="alert">
