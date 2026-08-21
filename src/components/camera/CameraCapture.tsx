@@ -6,11 +6,9 @@ import { CameraPreview } from "./CameraPreview";
 import { CapturedImage } from "./CapturedImage";
 import styles from "./CameraCapture.module.css";
 
-const errorMessage = "カメラを起動できませんでした。権限を確認して、もう一度お試しください。";
-
 export function CameraCapture() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { status, startCamera, markCaptured } = useCamera(videoRef);
+  const { status, error, startCamera, markCaptured } = useCamera(videoRef);
 
   return (
     <section className={styles.capture} aria-labelledby="camera-title">
@@ -40,7 +38,7 @@ export function CameraCapture() {
 
       {status === "error" && (
         <div className={styles.errorPanel} role="alert">
-          <p>{errorMessage}</p>
+          <p>{error?.message}</p>
           <button className={styles.secondaryButton} type="button" onClick={startCamera}>
             もう一度試す
           </button>

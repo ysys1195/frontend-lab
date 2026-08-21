@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
-import type { CameraStatus } from "@/types/camera";
+import { getCameraError, getUnsupportedCameraError } from "../lib/camera/getCameraError";
+import type { CameraError, CameraStatus } from "@/types/camera";
 
 export const CAMERA_CONSTRAINTS: MediaStreamConstraints = {
   audio: false,
@@ -20,7 +21,7 @@ export const CAMERA_CONSTRAINTS: MediaStreamConstraints = {
 
 type UseCameraResult = {
   status: CameraStatus;
-  error: Error | null;
+  error: CameraError | null;
   startCamera: () => Promise<void>;
   stopCamera: () => void;
   markCaptured: () => void;
@@ -32,13 +33,9 @@ export function stopMediaStream(stream: MediaStream | null): void {
   });
 }
 
-function toCameraError(error: unknown): Error {
-  return error instanceof Error ? error : new Error("カメラを起動できませんでした。");
-}
-
 export function useCamera(videoRef: RefObject<HTMLVideoElement | null>): UseCameraResult {
   const [status, setStatus] = useState<CameraStatus>("idle");
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<CameraError | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const isMountedRef = useRef(true);
   const requestIdRef = useRef(0);
@@ -72,7 +69,7 @@ export function useCamera(videoRef: RefObject<HTMLVideoElement | null>): UseCame
     const mediaDevices = typeof navigator === "undefined" ? undefined : navigator.mediaDevices;
     if (!mediaDevices?.getUserMedia) {
       if (isMountedRef.current) {
-        setError(new Error("このブラウザではカメラを利用できません。"));
+        setError(getUnsupportedCameraError());
         setStatus("error");
       }
       return;
@@ -94,7 +91,7 @@ export function useCamera(videoRef: RefObject<HTMLVideoElement | null>): UseCame
 
       if (!video) {
         releaseStream();
-        setError(new Error("カメラプレビューを表示できませんでした。"));
+        setError(getCameraError(new Error("Camera preview is unavailable.")));
         setStatus("error");
         return;
       }
@@ -106,7 +103,8 @@ export function useCamera(videoRef: RefObject<HTMLVideoElement | null>): UseCame
         return;
       }
 
-      setError(toCameraError(caughtError));
+      releaseStream();
+      setError(getCameraError(caughtError));
       setStatus("error");
     }
   }, [releaseStream, videoRef]);
