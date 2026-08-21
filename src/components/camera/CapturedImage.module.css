@@ -1,0 +1,28 @@
+.result {
+  display: grid;
+  gap: 1rem;
+}
+
+.result h2 {
+  margin: 0;
+  font-size: 1.125rem;
+}
+
+.imagePlaceholder {
+  aspect-ratio: 1.586 / 1;
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  background:
+    linear-gradient(135deg, transparent 48%, #e5e7eb 49%, #e5e7eb 51%, transparent 52%),
+    #f9fafb;
+}
+
+.retakeButton {
+  min-height: 3rem;
+  border: 1px solid #9ca3af;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  color: #1f2937;
+  font: inherit;
+  font-weight: 700;
+}
