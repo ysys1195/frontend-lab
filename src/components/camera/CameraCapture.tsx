@@ -1,14 +1,70 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useCamera } from "@/hooks/useCamera";
+import { calculateCropArea } from "@/lib/camera/calculateCropArea";
+import { captureImage } from "@/lib/camera/captureImage";
 import { CameraPreview } from "./CameraPreview";
 import { CapturedImage } from "./CapturedImage";
 import styles from "./CameraCapture.module.css";
 
 export function CameraCapture() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const guideRef = useRef<HTMLDivElement>(null);
+  const [, setCapturedImage] = useState<Blob | null>(null);
+  const [isCapturing, setIsCapturing] = useState(false);
+  const [captureError, setCaptureError] = useState<string | null>(null);
   const { status, error, startCamera, markCaptured } = useCamera(videoRef);
+
+  const handleCapture = async () => {
+    const video = videoRef.current;
+    const preview = previewRef.current;
+    const guide = guideRef.current;
+
+    if (
+      !video ||
+      !preview ||
+      !guide ||
+      video.videoWidth <= 0 ||
+      video.videoHeight <= 0
+    ) {
+      setCaptureError("カメラ映像の準備が完了していません。もう一度お試しください。");
+      return;
+    }
+
+    const previewRect = preview.getBoundingClientRect();
+    const guideRect = guide.getBoundingClientRect();
+
+    if (previewRect.width <= 0 || previewRect.height <= 0) {
+      setCaptureError("撮影範囲を取得できませんでした。もう一度お試しください。");
+      return;
+    }
+
+    setCaptureError(null);
+    setIsCapturing(true);
+
+    try {
+      const cropArea = calculateCropArea({
+        videoWidth: video.videoWidth,
+        videoHeight: video.videoHeight,
+        containerWidth: previewRect.width,
+        containerHeight: previewRect.height,
+        guideX: guideRect.left - previewRect.left,
+        guideY: guideRect.top - previewRect.top,
+        guideWidth: guideRect.width,
+        guideHeight: guideRect.height,
+      });
+      const blob = await captureImage({ video, cropArea });
+
+      setCapturedImage(blob);
+      markCaptured();
+    } catch {
+      setCaptureError("画像を撮影できませんでした。もう一度お試しください。");
+    } finally {
+      setIsCapturing(false);
+    }
+  };
 
   return (
     <section className={styles.capture} aria-labelledby="camera-title">
@@ -29,8 +85,12 @@ export function CameraCapture() {
       {(status === "requesting" || status === "previewing") && (
         <CameraPreview
           videoRef={videoRef}
-          onCapture={markCaptured}
+          previewRef={previewRef}
+          guideRef={guideRef}
+          onCapture={() => void handleCapture()}
           isRequesting={status === "requesting"}
+          isCapturing={isCapturing}
+          captureError={captureError}
         />
       )}
 

@@ -4,14 +4,26 @@ import styles from "./CameraPreview.module.css";
 
 type CameraPreviewProps = {
   videoRef: RefObject<HTMLVideoElement | null>;
+  previewRef: RefObject<HTMLDivElement | null>;
+  guideRef: RefObject<HTMLDivElement | null>;
   onCapture: () => void;
   isRequesting: boolean;
+  isCapturing: boolean;
+  captureError: string | null;
 };
 
-export function CameraPreview({ videoRef, onCapture, isRequesting }: CameraPreviewProps) {
+export function CameraPreview({
+  videoRef,
+  previewRef,
+  guideRef,
+  onCapture,
+  isRequesting,
+  isCapturing,
+  captureError,
+}: CameraPreviewProps) {
   return (
     <section className={styles.preview} aria-label="カメラプレビュー">
-      <div className={styles.previewArea}>
+      <div ref={previewRef} className={styles.previewArea}>
         <video
           ref={videoRef}
           className={styles.video}
@@ -21,14 +33,19 @@ export function CameraPreview({ videoRef, onCapture, isRequesting }: CameraPrevi
           aria-label="カメラプレビュー"
         />
         {isRequesting && <span className={styles.previewLabel}>カメラを起動しています…</span>}
-        <CaptureGuide />
+        {captureError && (
+          <span className={styles.previewLabel} role="alert">
+            {captureError}
+          </span>
+        )}
+        <CaptureGuide guideRef={guideRef} />
         <button
           className={styles.captureButton}
           type="button"
           onClick={onCapture}
-          disabled={isRequesting}
+          disabled={isRequesting || isCapturing}
         >
-          撮影する
+          {isCapturing ? "撮影中…" : "撮影する"}
         </button>
       </div>
     </section>
