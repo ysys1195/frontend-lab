@@ -1,0 +1,39 @@
+.preview {
+  display: grid;
+  gap: 1rem;
+}
+
+.previewArea {
+  position: relative;
+  display: grid;
+  min-height: 19rem;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: #1f2937;
+  color: #ffffff;
+}
+
+.previewLabel {
+  align-self: start;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+}
+
+.guide {
+  width: min(82%, 25rem);
+  aspect-ratio: 1.586 / 1;
+  border: 2px solid #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0 100vmax rgb(0 0 0 / 38%);
+}
+
+.captureButton {
+  min-height: 3rem;
+  border: 1px solid #1d4ed8;
+  border-radius: 0.5rem;
+  background: #2563eb;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+}
