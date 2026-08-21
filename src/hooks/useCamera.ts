@@ -2,22 +2,15 @@
 
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { getCameraError, getUnsupportedCameraError } from "../lib/camera/getCameraError";
+import {
+  CAMERA_CONSTRAINT_CANDIDATES,
+  requestCameraStream,
+  stopMediaStream,
+} from "../lib/camera/requestCameraStream";
 import type { CameraError, CameraStatus } from "@/types/camera";
 
-export const CAMERA_CONSTRAINTS: MediaStreamConstraints = {
-  audio: false,
-  video: {
-    facingMode: {
-      ideal: "environment",
-    },
-    width: {
-      ideal: 1920,
-    },
-    height: {
-      ideal: 1080,
-    },
-  },
-};
+export const CAMERA_CONSTRAINTS = CAMERA_CONSTRAINT_CANDIDATES[0];
+export { CAMERA_CONSTRAINT_CANDIDATES, stopMediaStream };
 
 type UseCameraResult = {
   status: CameraStatus;
@@ -26,12 +19,6 @@ type UseCameraResult = {
   stopCamera: () => void;
   markCaptured: () => void;
 };
-
-export function stopMediaStream(stream: MediaStream | null): void {
-  stream?.getTracks().forEach((track) => {
-    track.stop();
-  });
-}
 
 export function useCamera(videoRef: RefObject<HTMLVideoElement | null>): UseCameraResult {
   const [status, setStatus] = useState<CameraStatus>("idle");
@@ -79,10 +66,12 @@ export function useCamera(videoRef: RefObject<HTMLVideoElement | null>): UseCame
     setStatus("requesting");
 
     try {
-      const stream = await mediaDevices.getUserMedia(CAMERA_CONSTRAINTS);
+      const stream = await requestCameraStream(
+        (constraints) => mediaDevices.getUserMedia(constraints),
+        () => isMountedRef.current && requestId === requestIdRef.current,
+      );
 
-      if (!isMountedRef.current || requestId !== requestIdRef.current) {
-        stopMediaStream(stream);
+      if (!stream) {
         return;
       }
 
