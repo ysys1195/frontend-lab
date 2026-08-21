@@ -1,4 +1,5 @@
 import type { RefObject } from "react";
+import { CaptureGuide } from "./CaptureGuide";
 import styles from "./CameraPreview.module.css";
 
 type CameraPreviewProps = {
@@ -20,16 +21,16 @@ export function CameraPreview({ videoRef, onCapture, isRequesting }: CameraPrevi
           aria-label="カメラプレビュー"
         />
         {isRequesting && <span className={styles.previewLabel}>カメラを起動しています…</span>}
-        <div className={styles.guide} aria-label="身分証を合わせるガイド枠" />
+        <CaptureGuide />
+        <button
+          className={styles.captureButton}
+          type="button"
+          onClick={onCapture}
+          disabled={isRequesting}
+        >
+          撮影する
+        </button>
       </div>
-      <button
-        className={styles.captureButton}
-        type="button"
-        onClick={onCapture}
-        disabled={isRequesting}
-      >
-        撮影する
-      </button>
     </section>
   );
 }

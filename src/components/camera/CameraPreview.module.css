@@ -28,16 +28,12 @@
   font-size: 0.875rem;
 }
 
-.guide {
-  z-index: 1;
-  width: min(82%, 25rem);
-  aspect-ratio: 1.586 / 1;
-  border: 2px solid #ffffff;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 0 100vmax rgb(0 0 0 / 38%);
-}
-
 .captureButton {
+  position: absolute;
+  z-index: 2;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
   min-height: 3rem;
   border: 1px solid #1d4ed8;
   border-radius: 0.5rem;

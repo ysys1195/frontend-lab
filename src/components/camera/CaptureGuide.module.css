@@ -1,0 +1,8 @@
+.guide {
+  z-index: 1;
+  width: min(82%, 25rem);
+  aspect-ratio: 1.586 / 1;
+  border: 2px solid #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0 100vmax rgb(0 0 0 / 38%);
+}
