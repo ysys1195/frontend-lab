@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useCamera } from "@/hooks/useCamera";
+import { useImageAnalysis } from "@/hooks/useImageAnalysis";
 import { calculateCropArea } from "@/lib/camera/calculateCropArea";
 import { captureImage } from "@/lib/camera/captureImage";
 import { createObjectUrl, revokeObjectUrl } from "@/lib/camera/objectUrl";
@@ -19,6 +20,7 @@ export function CameraCapture() {
   const [isCapturing, setIsCapturing] = useState(false);
   const [captureError, setCaptureError] = useState<string | null>(null);
   const { status, error, startCamera, markCaptured } = useCamera(videoRef);
+  const { analysisState, startAnalysis, resetAnalysis } = useImageAnalysis();
 
   const releaseObjectUrl = useCallback(() => {
     const currentObjectUrl = objectUrlRef.current;
@@ -81,6 +83,7 @@ export function CameraCapture() {
       setObjectUrl(nextObjectUrl);
       revokeObjectUrl(previousObjectUrl);
       markCaptured();
+      void startAnalysis(blob);
     } catch {
       setCaptureError("画像を撮影できませんでした。もう一度お試しください。");
     } finally {
@@ -92,6 +95,7 @@ export function CameraCapture() {
     releaseObjectUrl();
     setCapturedImage(null);
     setCaptureError(null);
+    resetAnalysis();
     await startCamera();
   };
 
@@ -124,7 +128,11 @@ export function CameraCapture() {
       )}
 
       {status === "captured" && capturedImage && objectUrl && (
-        <CapturedImage imageUrl={objectUrl} onRetake={() => void handleRetake()} />
+        <CapturedImage
+          imageUrl={objectUrl}
+          analysisState={analysisState}
+          onRetake={() => void handleRetake()}
+        />
       )}
 
       {status === "error" && (

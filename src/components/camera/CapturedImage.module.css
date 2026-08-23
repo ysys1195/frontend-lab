@@ -17,6 +17,56 @@
   object-fit: contain;
 }
 
+.analysis {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  background: #f9fafb;
+}
+
+.analysis h3,
+.analysis p,
+.analysis dl,
+.analysis dd {
+  margin: 0;
+}
+
+.analysis h3 {
+  font-size: 1rem;
+}
+
+.loading {
+  color: #4b5563;
+}
+
+.analysisSuccess {
+  display: grid;
+  gap: 0.75rem;
+  color: #166534;
+}
+
+.analysisDetails {
+  display: grid;
+  gap: 0.5rem;
+  color: #1f2937;
+}
+
+.analysisDetails div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.analysisDetails dt {
+  font-weight: 700;
+}
+
+.analysisError {
+  color: #b91c1c;
+}
+
 .retakeButton {
   min-height: 3rem;
   border: 1px solid #9ca3af;
