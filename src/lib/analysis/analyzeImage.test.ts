@@ -45,6 +45,28 @@ describe("analyzeImage", () => {
     );
   });
 
+  it("uses a localized message when the network request fails", async () => {
+    const fetcher = vi.fn().mockRejectedValue(new TypeError("Failed to fetch"));
+
+    await expect(analyzeImage(new Blob(["image"]), { fetcher })).rejects.toThrow(
+      "画像の解析に失敗しました。通信環境を確認して、もう一度お試しください。",
+    );
+  });
+
+  it("preserves an abort error when the request is cancelled", async () => {
+    const controller = new AbortController();
+    controller.abort();
+    const abortError = new DOMException("The operation was aborted.", "AbortError");
+    const fetcher = vi.fn().mockRejectedValue(abortError);
+
+    await expect(
+      analyzeImage(new Blob(["image"]), {
+        fetcher,
+        signal: controller.signal,
+      }),
+    ).rejects.toBe(abortError);
+  });
+
   it("rejects an invalid successful response", async () => {
     const fetcher = vi.fn().mockResolvedValue(Response.json({ status: "completed" }));
 

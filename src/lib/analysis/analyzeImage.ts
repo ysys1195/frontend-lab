@@ -39,11 +39,24 @@ export async function analyzeImage(
   const formData = new FormData();
   formData.set("image", image, "captured-image.jpg");
 
-  const response = await fetcher("/api/analyze", {
-    method: "POST",
-    body: formData,
-    signal,
-  });
+  let response: Response;
+
+  try {
+    response = await fetcher("/api/analyze", {
+      method: "POST",
+      body: formData,
+      signal,
+    });
+  } catch (error: unknown) {
+    if (signal?.aborted) {
+      throw error;
+    }
+
+    throw new Error(
+      "画像の解析に失敗しました。通信環境を確認して、もう一度お試しください。",
+    );
+  }
+
   const body = await readJson(response);
 
   if (!response.ok) {
