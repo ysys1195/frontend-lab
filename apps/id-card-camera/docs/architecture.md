@@ -797,9 +797,9 @@ PWA化は行わない。
 
 ---
 
-# 16. Future Extensions
+# 16. Analysis Flow and Future Extensions
 
-MVP完成後、必要に応じて以下を追加する。
+現在は、初期MVP後の拡張として以下のMock画像解析フローまで実装済みである。
 
 ```text
 撮影画像
@@ -827,4 +827,4 @@ Go API
 
 のような構成へ拡張できる。
 
-これらは初期MVPのIssueには含めない。
+Go APIや実画像解析への接続は、現在の対象には含めない。

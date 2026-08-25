@@ -298,7 +298,7 @@ src/
 ### 必要なもの
 
 - Node.js 20.9.0以上
-- npm
+- pnpm 10.34.5
 - カメラを搭載した端末、またはカメラを利用できるブラウザ
 
 環境変数は不要です。
@@ -306,10 +306,10 @@ src/
 ### セットアップ
 
 ```bash
-git clone https://github.com/ysys1195/id-card-camera-prototype.git
-cd id-card-camera-prototype
-npm ci
-npm run dev
+git clone https://github.com/ysys1195/frontend-lab.git
+cd frontend-lab
+pnpm install --frozen-lockfile
+pnpm --filter @repo/id-card-camera dev
 ```
 
 PCでは通常、[http://localhost:3000](http://localhost:3000) を開きます。ブラウザからカメラの利用確認が表示されたら許可してください。
@@ -319,31 +319,31 @@ PCでは通常、[http://localhost:3000](http://localhost:3000) を開きます�
 同じWi-Fi内で開発サーバーを公開すると、MacのLAN IPから画面自体は確認できます。
 
 ```bash
-npm run dev -- --hostname 0.0.0.0
+pnpm --filter @repo/id-card-camera dev -- --hostname 0.0.0.0
 ```
 
 ただし、iPhoneから `http://<MacのLAN IP>:3000` を開いたページは通常Secure Contextではありません。画面が表示できても、カメラAPIを利用できない場合があります。実カメラの確認には、公開デモ、Vercel Preview、またはHTTPS対応のトンネルを使用してください。
 
-## npm scripts
+## pnpm scripts
 
 | コマンド | 内容 |
 | --- | --- |
-| `npm run dev` | Next.js開発サーバーを起動 |
-| `npm run build` | 本番用にビルド |
-| `npm run start` | ビルド済みアプリを本番モードで起動 |
-| `npm run typecheck` | TypeScriptを `noEmit` で検査 |
-| `npm run lint` | ESLintを実行 |
-| `npm run test` | Vitestを1回実行 |
+| `pnpm --filter @repo/id-card-camera dev` | Next.js開発サーバーを起動 |
+| `pnpm --filter @repo/id-card-camera build` | 本番用にビルド |
+| `pnpm --filter @repo/id-card-camera start` | ビルド済みアプリを本番モードで起動 |
+| `pnpm --filter @repo/id-card-camera typecheck` | TypeScriptを `noEmit` で検査 |
+| `pnpm --filter @repo/id-card-camera lint` | ESLintを実行 |
+| `pnpm --filter @repo/id-card-camera test` | Vitestを1回実行 |
 
 ## テスト
 
 基本の検証コマンドは次のとおりです。
 
 ```bash
-npm run typecheck
-npm run lint
-npm run test
-npm run build
+pnpm --filter @repo/id-card-camera typecheck
+pnpm --filter @repo/id-card-camera lint
+pnpm --filter @repo/id-card-camera test
+pnpm --filter @repo/id-card-camera build
 ```
 
 Unit Testでは主に次を確認しています。
@@ -395,7 +395,7 @@ APIへ到達できない場合は、次のメッセージを表示します。
 - PWA
 - User Agentによる特定端末向けの分岐
 
-`docs/architecture.md` と `docs/implementation-plan.md` は初期MVPを基準にしており、Mock解析を将来拡張として記載しています。現在の実装では、そのうちFormData送信、Route Handler、Mockレスポンス、解析結果UIまでが追加済みです。
+`docs/architecture.md` と `docs/implementation-plan.md` は初期MVPを基準にしつつ、実装済みのFormData送信、Route Handler、Mockレスポンス、解析結果UIも記録しています。
 
 ## 関連ドキュメント
 

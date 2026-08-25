@@ -676,11 +676,11 @@ HTTPSでWebアプリを開く
 
 ---
 
-# Future Work
+# Implemented Extension and Future Work
 
-以下は初期MVPには含めず、必要になった場合に別途Implementation Planを追加する。
+Mock Analysis APIは初期MVP後の拡張として実装済みである。その他は必要になった場合に別途Implementation Planを追加する。
 
-## Mock Analysis API
+## Implemented: Mock Analysis API
 
 ```text
 Blob
@@ -714,4 +714,4 @@ Go API
 - ブレ検出
 - 撮影品質判定
 
-初期のGitHub Issue作成時には、これらFuture WorkをIssue化しない。
+初期のGitHub Issue作成時には、BFF IntegrationとImage AnalysisをIssue化しない。

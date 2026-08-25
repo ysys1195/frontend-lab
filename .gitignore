@@ -1,15 +1,18 @@
 # dependencies
-/node_modules
+node_modules/
 
 # Next.js build output
-/.next
-/out
+.next/
+out/
+
+# Turborepo cache
+.turbo/
 
 # TypeScript build information
 *.tsbuildinfo
 
 # test output
-/coverage
+coverage/
 
 # local environment files
 .env*
