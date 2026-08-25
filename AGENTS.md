@@ -1,35 +1,37 @@
-# Project Guidelines
+# Monorepo Guidelines
 
-## Project
+## Workspace boundaries
 
-Next.js /
-TypeScript を使用した、スマートフォン向け身分証撮影プロトタイプです。ブラウザ標準の Web
-API を利用してカメラ映像を取得し、ガイド枠に合わせて画像を撮影・表示します。
+- `apps/*` は、それぞれ独立して開発・デプロイ可能なアプリです。
+- `packages/*` は、複数アプリから利用する共有コード用です。
+- Issue / task に必要な workspace だけを調査し、無関係な workspace は変更しません。
+- 作業対象から最も近い `AGENTS.md` を確認し、その規約を優先します。
+- 共有コードは、実際に複数アプリから必要になってから `packages/*` へ切り出します。
 
-## Documentation
+## Package management
 
-- Architecture: `docs/architecture.md`
-- Implementation plan: `docs/implementation-plan.md`
+- package manager は、ルート `package.json` に固定された pnpm のみを使用します。
+- npm と yarn は使用しません。
+- dependency install と lockfile 更新は、原則としてリポジトリルートから行います。
+- workspace 間の依存には `workspace:*` を使用します。
+- 不要な依存パッケージや、必要性のない共有 package は追加しません。
 
-## Development Rules
+## Development
 
-- TypeScript strict
-- `any` は原則使用しない
-- UIとロジックを可能な範囲で分離する
-- 不要な依存ライブラリを追加しない
-- 無関係なリファクタリングをしない
+- アプリ固有の実装・文書・設定は対象の `apps/<app-name>` 内に保持します。
+- 複数 workspace に影響する変更では、影響範囲を明示して最小限の変更に留めます。
+- 無関係なリファクタリングは行いません。
+- 新規アプリは `apps/<app-name>` に追加し、一意な package name を設定します。
 
 ## Verification
 
-実装後に以下を確認する。
+実装後はリポジトリルートから、少なくとも次を確認します。
 
-- typecheck
-- lint
-- test
+```bash
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+```
 
-## Agent Instructions
-
-- Issueに必要なファイルから調査する
-- リポジトリ全体を無条件に読み込まない
-- 必要になった場合のみ関連ファイルを追加で確認する
-- 詳細仕様は `docs/` を参照する
+必要に応じて `pnpm --filter <package-name> <task>` で対象 workspace を単体確認します。
