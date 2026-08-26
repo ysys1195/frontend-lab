@@ -23,6 +23,17 @@
 - 無関係なリファクタリングは行いません。
 - 新規アプリは `apps/<app-name>` に追加し、一意な package name を設定します。
 
+## New application workflow
+
+- 新規アプリは `apps/<app-name>` に作成し、独立して検証・デプロイできる状態にします。
+- 対象アプリを含む lint / typecheck / test / build が成功するまで Vercel を操作しません。
+- task branch へ commit し、GitHub の remote branch へ push した後にのみ Vercel Project 作成へ進みます。
+- Vercel Project の参照・作成には実行時点の公式仕様を確認した REST API を使い、認証には `VERCEL_TOKEN` を使用します。
+- Token 値をログ、出力、ソース、commit、ドキュメント、最終報告へ含めません。
+- 同名または同用途の Project を先に確認し、重複作成や既存 Project の削除・再作成を行いません。
+- 標準設定は Git repository `ysys1195/frontend-lab`、Root Directory `apps/<app-name>`、Framework Next.js です。
+- 詳細な Phase、停止条件、安全策は `docs/monorepo.md` の標準フローに従います。
+
 ## Verification
 
 実装後はリポジトリルートから、少なくとも次を確認します。
