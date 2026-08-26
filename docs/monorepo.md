@@ -7,7 +7,8 @@
 ```text
 frontend-lab/
 ├── apps/
-│   └── id-card-camera/
+│   ├── id-card-camera/
+│   └── interview-flashcards/
 ├── packages/
 ├── docs/
 │   └── monorepo.md
@@ -18,7 +19,7 @@ frontend-lab/
 └── turbo.json
 ```
 
-現在の workspace は `@repo/id-card-camera` だけです。`packages/*` は将来の共有コード用に workspace 対象へ含めていますが、必要性のない共有 package は作成していません。
+現在のアプリ workspace は `@repo/id-card-camera` と `@repo/interview-flashcards` です。`packages/*` は将来の共有コード用に workspace 対象へ含めていますが、必要性のない共有 package は作成していません。
 
 ## Package manager and install
 
