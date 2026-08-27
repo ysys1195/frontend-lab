@@ -14,6 +14,19 @@ export function FlashCardBack({ card }: FlashCardBackProps) {
         <p className="mt-3 leading-8 text-slate-200">{card.answer}</p>
       </section>
 
+      <section
+        aria-labelledby={`${card.id}-senku-memo`}
+        className="rounded-2xl border border-amber-300/30 bg-amber-300/10 p-5"
+      >
+        <h3
+          id={`${card.id}-senku-memo`}
+          className="text-lg font-bold text-amber-200"
+        >
+          千空メモ
+        </h3>
+        <p className="mt-3 leading-8 text-amber-50">{card.senkuMemo}</p>
+      </section>
+
       <section aria-labelledby={`${card.id}-key-points`}>
         <h3 id={`${card.id}-key-points`} className="text-lg font-bold text-cyan-300">
           重要ポイント
