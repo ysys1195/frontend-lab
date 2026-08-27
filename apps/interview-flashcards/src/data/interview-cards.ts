@@ -52,8 +52,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 同一プロセスのスレッドはメモリ等を共有する"
     ],
     "followUps": [
-      "じゃあ次だ。 ブラウザのメインスレッドでは何が動いていますか？",
-      "もう一段掘るぞ。 Web Workerを使うと何が変わりますか？"
+      "じゃあ次だ。 ブラウザのメインスレッドでは何が動いている？",
+      "もう一段掘るぞ。 Web Workerを使うと何が変わる？"
     ],
     "references": [
       {
@@ -74,7 +74,7 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 実装詳細はJavaScriptエンジンに依存する"
     ],
     "followUps": [
-      "じゃあ次だ。 Call Stackが大きくなりすぎると何が起きますか？",
+      "じゃあ次だ。 Call Stackが大きくなりすぎると何が起きる？",
       "もう一段掘るぞ。 再帰処理との関係は？"
     ],
     "references": [
@@ -100,8 +100,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 イベントループとブラウザAPIは同じものではない"
     ],
     "followUps": [
-      "じゃあ次だ。 PromiseとsetTimeoutでは一般にどちらが先に実行されますか？",
-      "もう一段掘るぞ。 run-to-completionとは何ですか？"
+      "じゃあ次だ。 PromiseとsetTimeoutでは一般にどちらが先に実行される？",
+      "もう一段掘るぞ。 run-to-completionとは何だ？"
     ],
     "references": [
       {
@@ -122,7 +122,7 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 Microtaskは次のTaskより前に処理される"
     ],
     "followUps": [
-      "じゃあ次だ。 Microtaskを大量に追加し続けると何が問題になりますか？",
+      "じゃあ次だ。 Microtaskを大量に追加し続けると何が問題になる？",
       "もう一段掘るぞ。 queueMicrotaskとは？"
     ],
     "references": [
@@ -144,8 +144,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 awaitは関数全体のスレッドをブロックするわけではない"
     ],
     "followUps": [
-      "じゃあ次だ。 async/awaitを使うと同期処理になるのですか？",
-      "もう一段掘るぞ。 Promiseとは何ですか？"
+      "じゃあ次だ。 async/awaitを使うと同期処理になるのか？",
+      "もう一段掘るぞ。 Promiseとは何だ？"
     ],
     "references": [
       {
@@ -188,7 +188,7 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 CPU負荷の高い処理はWorkerも候補"
     ],
     "followUps": [
-      "じゃあ次だ。 対策にはどんなものがありますか？",
+      "じゃあ次だ。 対策にはどんなものがある？",
       "もう一段掘るぞ。 Web Workerが向いていない処理は？"
     ],
     "references": [
@@ -215,7 +215,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 Dedicated WorkerとShared Workerの違いは？",
-      "もう一段掘るぞ。 データ転送コストには何を考慮しますか？"
+      "もう一段掘るぞ。 データ転送コストには何を考慮する？"
     ],
     "references": [
       {
@@ -237,7 +237,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 DNSキャッシュが効いている場合は？",
-      "もう一段掘るぞ。 HTTP/2やHTTP/3だと何が変わりますか？"
+      "もう一段掘るぞ。 HTTP/2やHTTP/3だと何が変わる？"
     ],
     "references": [
       {
@@ -267,7 +267,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 HTTP/1.1とHTTP/2の主な違いは？",
-      "もう一段掘るぞ。 HTTPはどの層のプロトコルですか？"
+      "もう一段掘るぞ。 HTTPはどの層のプロトコルだ？"
     ],
     "references": [
       {
@@ -292,8 +292,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 接続再利用とアプリ状態保持も別概念"
     ],
     "followUps": [
-      "じゃあ次だ。 ログイン状態はどう実現しますか？",
-      "もう一段掘るぞ。 CookieはHTTPのstateless性をなくすのですか？"
+      "じゃあ次だ。 ログイン状態はどう実現する？",
+      "もう一段掘るぞ。 CookieはHTTPのstateless性をなくすのか？"
     ],
     "references": [
       {
@@ -319,7 +319,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 safeとidempotentの違いは？",
-      "もう一段掘るぞ。 GETにBodyを付ければPOSTと同じですか？"
+      "もう一段掘るぞ。 GETにBodyを付ければPOSTと同じなのか？"
     ],
     "references": [
       {
@@ -344,8 +344,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 同じレスポンスになることを保証する概念ではない"
     ],
     "followUps": [
-      "じゃあ次だ。 POSTを冪等に設計することはできますか？",
-      "もう一段掘るぞ。 リトライ設計と冪等性はどう関係しますか？"
+      "じゃあ次だ。 POSTを冪等に設計することはできる？",
+      "もう一段掘るぞ。 リトライ設計と冪等性はどう関係する？"
     ],
     "references": [
       {
@@ -370,8 +370,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 204は成功だが本文なし"
     ],
     "followUps": [
-      "じゃあ次だ。 POSTが成功したら常に201ですか？",
-      "もう一段掘るぞ。 DELETE成功時には何を返しますか？"
+      "じゃあ次だ。 POSTが成功したら常に201なのか？",
+      "もう一段掘るぞ。 DELETE成功時には何を返す？"
     ],
     "references": [
       {
@@ -392,8 +392,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 認証と認可を区別する"
     ],
     "followUps": [
-      "じゃあ次だ。 存在を隠したいリソースでは404を使うことがありますか？",
-      "もう一段掘るぞ。 401という名前がUnauthorizedなのは紛らわしくないですか？"
+      "じゃあ次だ。 存在を隠したいリソースでは404を使うことがある？",
+      "もう一段掘るぞ。 401という名前がUnauthorizedなのは紛らわしくないか？"
     ],
     "references": [
       {
@@ -419,7 +419,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 Content-TypeとAcceptの違いは？",
-      "もう一段掘るぞ。 Authorization Headerには何を入れますか？"
+      "もう一段掘るぞ。 Authorization Headerには何を入れる？"
     ],
     "references": [
       {
@@ -442,7 +442,7 @@ export const interviewCards: InterviewCard[] = [
     "followUps": [
       "じゃあ次だ。 AとAAAAの違いは？",
       "もう一段掘るぞ。 CNAMEとは？",
-      "ここまで来たらこれも。 TTLは何のためにありますか？"
+      "ここまで来たらこれも。 TTLは何のためにある？"
     ],
     "references": [
       {
@@ -463,8 +463,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 HTTP/3はUDP上のQUICを利用する"
     ],
     "followUps": [
-      "じゃあ次だ。 HTTP/3はなぜTCPではないのですか？",
-      "もう一段掘るぞ。 WebSocketは通常どちらを使いますか？"
+      "じゃあ次だ。 HTTP/3はなぜTCPではない？",
+      "もう一段掘るぞ。 WebSocketは通常どちらを使う？"
     ],
     "references": [
       {
@@ -485,7 +485,7 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 証明書の検証が接続先認証に使われる"
     ],
     "followUps": [
-      "じゃあ次だ。 TLS証明書には何が書かれていますか？",
+      "じゃあ次だ。 TLS証明書には何が書かれている？",
       "もう一段掘るぞ。 HTTPSでも防げない攻撃は？"
     ],
     "references": [
@@ -508,7 +508,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 no-cacheとno-storeの違いは？",
-      "もう一段掘るぞ。 ETagとは何ですか？"
+      "もう一段掘るぞ。 ETagとは何だ？"
     ],
     "references": [
       {
@@ -552,7 +552,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 XSSとの違いは？",
-      "もう一段掘るぞ。 Authorization HeaderのBearer Tokenを使う場合はどう変わりますか？"
+      "もう一段掘るぞ。 Authorization HeaderのBearer Tokenを使う場合はどう変わる？"
     ],
     "references": [
       {
@@ -578,7 +578,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 同一サイトと同一オリジンの違いは？",
-      "もう一段掘るぞ。 CORSとはどう関係しますか？"
+      "もう一段掘るぞ。 CORSとはどう関係する？"
     ],
     "references": [
       {
@@ -625,8 +625,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 認証方式全体の脅威モデルで判断する"
     ],
     "followUps": [
-      "じゃあ次だ。 HttpOnly CookieならXSS対策は不要ですか？",
-      "もう一段掘るぞ。 Cookie認証でCSRFをどう対策しますか？"
+      "じゃあ次だ。 HttpOnly CookieならXSS対策は不要なのか？",
+      "もう一段掘るぞ。 Cookie認証でCSRFをどう対策する？"
     ],
     "references": [
       {
@@ -660,7 +660,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 Secure属性との違いは？",
-      "もう一段掘るぞ。 HttpOnlyでもCSRFは起きますか？"
+      "もう一段掘るぞ。 HttpOnlyでもCSRFは起きる？"
     ],
     "references": [
       {
@@ -682,7 +682,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 StrictとLaxの違いは？",
-      "もう一段掘るぞ。 DomainやPath属性はセキュリティ境界ですか？"
+      "もう一段掘るぞ。 DomainやPath属性はセキュリティ境界なのか？"
     ],
     "references": [
       {
@@ -703,8 +703,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 UI非表示だけで認可を実現してはいけない"
     ],
     "followUps": [
-      "じゃあ次だ。 401と403はどう使い分けますか？",
-      "もう一段掘るぞ。 フロントエンドだけで権限制御してよいですか？"
+      "じゃあ次だ。 401と403はどう使い分ける？",
+      "もう一段掘るぞ。 フロントエンドだけで権限制御してよいのか？"
     ],
     "references": [
       {
@@ -726,7 +726,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 nonceとは？",
-      "もう一段掘るぞ。 unsafe-inlineを許可すると何が変わりますか？"
+      "もう一段掘るぞ。 unsafe-inlineを許可すると何が変わる？"
     ],
     "references": [
       {
@@ -751,7 +751,7 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 公開前提のAPI keyとSecretを区別する"
     ],
     "followUps": [
-      "じゃあ次だ。 Next.jsのNEXT_PUBLIC_変数は秘密にできますか？",
+      "じゃあ次だ。 Next.jsのNEXT_PUBLIC_変数は秘密にできる？",
       "もう一段掘るぞ。 公開API keyが許容されるケースは？"
     ],
     "references": [
@@ -773,8 +773,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 早すぎる抽象化を避ける"
     ],
     "followUps": [
-      "じゃあ次だ。 分割しすぎると何が問題ですか？",
-      "もう一段掘るぞ。 UIコンポーネントとロジックをどう分けますか？"
+      "じゃあ次だ。 分割しすぎると何が問題になる？",
+      "もう一段掘るぞ。 UIコンポーネントとロジックをどう分ける？"
     ],
     "references": [
       {
@@ -796,7 +796,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 Contextを使う基準は？",
-      "もう一段掘るぞ。 URLに持つべきstateはありますか？"
+      "もう一段掘るぞ。 URLに持つべきstateはある？"
     ],
     "references": [
       {
@@ -822,7 +822,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 TanStack Queryを使う理由は？",
-      "もう一段掘るぞ。 Server Componentを使う場合はどう考えますか？"
+      "もう一段掘るぞ。 Server Componentを使う場合はどう考える？"
     ],
     "references": [
       {
@@ -843,7 +843,7 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 抽象化自体を目的にしない"
     ],
     "followUps": [
-      "じゃあ次だ。 Custom HookとAPI clientの責務はどう分けますか？",
+      "じゃあ次だ。 Custom HookとAPI clientの責務はどう分ける？",
       "もう一段掘るぞ。 Server Componentから取得する場合は？"
     ],
     "references": [
@@ -869,8 +869,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 再試行可能性を考える"
     ],
     "followUps": [
-      "じゃあ次だ。 SkeletonとSpinnerはどう使い分けますか？",
-      "もう一段掘るぞ。 楽観的更新ではどんな状態が増えますか？"
+      "じゃあ次だ。 SkeletonとSpinnerはどう使い分ける？",
+      "もう一段掘るぞ。 楽観的更新ではどんな状態が増える？"
     ],
     "references": [
       {
@@ -891,7 +891,7 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 compositionも選択肢"
     ],
     "followUps": [
-      "じゃあ次だ。 Propsが増えすぎたらどうしますか？",
+      "じゃあ次だ。 Propsが増えすぎたらどうする？",
       "もう一段掘るぞ。 Compound Componentsを使うケースは？"
     ],
     "references": [
@@ -935,8 +935,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 実装詳細より振る舞いを検証する"
     ],
     "followUps": [
-      "じゃあ次だ。 Unit TestとE2E Testをどう使い分けますか？",
-      "もう一段掘るぞ。 モックしすぎると何が問題ですか？"
+      "じゃあ次だ。 Unit TestとE2E Testをどう使い分ける？",
+      "もう一段掘るぞ。 モックしすぎると何が問題になる？"
     ],
     "references": [
       {
@@ -957,7 +957,7 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 メモ化は万能ではない"
     ],
     "followUps": [
-      "じゃあ次だ。 React Profilerでは何を確認しますか？",
+      "じゃあ次だ。 React Profilerでは何を確認する？",
       "もう一段掘るぞ。 Core Web Vitalsとは？"
     ],
     "references": [
@@ -984,7 +984,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 実務でトレードオフを判断した例は？",
-      "もう一段掘るぞ。 技術的負債をいつ許容しますか？"
+      "もう一段掘るぞ。 技術的負債をいつ許容する？"
     ],
     "references": [
       {
@@ -1006,7 +1006,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 再レンダリングとDOM更新の違いは？",
-      "もう一段掘るぞ。 memoを使うとどうなりますか？"
+      "もう一段掘るぞ。 memoを使うとどうなる？"
     ],
     "references": [
       {
@@ -1057,7 +1057,7 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 過去renderのstateをmutationしない"
     ],
     "followUps": [
-      "じゃあ次だ。 配列へpushしたい場合はどう書きますか？",
+      "じゃあ次だ。 配列へpushしたい場合はどう書く？",
       "もう一段掘るぞ。 Immerを使う場合は？"
     ],
     "references": [
@@ -1080,7 +1080,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 indexをkeyにしても問題ないケースは？",
-      "もう一段掘るぞ。 keyを変えるとstateはどうなりますか？"
+      "もう一段掘るぞ。 keyを変えるとstateはどうなる？"
     ],
     "references": [
       {
@@ -1102,7 +1102,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 Effectが不要な具体例は？",
-      "もう一段掘るぞ。 イベントハンドラとEffectはどう使い分けますか？"
+      "もう一段掘るぞ。 イベントハンドラとEffectはどう使い分ける？"
     ],
     "references": [
       {
@@ -1131,7 +1131,7 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 依存値を意図的に隠すよりEffect設計を見直す"
     ],
     "followUps": [
-      "じゃあ次だ。 空配列なら何を意味しますか？",
+      "じゃあ次だ。 空配列なら何を意味する？",
       "もう一段掘るぞ。 関数をdependencyにすると毎回実行されることがあるのはなぜ？"
     ],
     "references": [
@@ -1154,7 +1154,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 Strict Modeで開発時にsetup/cleanupが追加実行されるのはなぜ？",
-      "もう一段掘るぞ。 fetchの競合をどう防ぎますか？"
+      "もう一段掘るぞ。 fetchの競合をどう防ぐ？"
     ],
     "references": [
       {
@@ -1179,7 +1179,7 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 全ての値をmemoizeしない"
     ],
     "followUps": [
-      "じゃあ次だ。 どんな処理ならuseMemoを検討しますか？",
+      "じゃあ次だ。 どんな処理ならuseMemoを検討する？",
       "もう一段掘るぞ。 React Compilerを使う場合は？"
     ],
     "references": [
@@ -1245,8 +1245,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 uncontrolledではDOM側に現在値を持たせる"
     ],
     "followUps": [
-      "じゃあ次だ。 ControlledとUncontrolledをどう使い分けますか？",
-      "もう一段掘るぞ。 checkboxの場合は何を使いますか？"
+      "じゃあ次だ。 ControlledとUncontrolledをどう使い分ける？",
+      "もう一段掘るぞ。 checkboxの場合は何を使う？"
     ],
     "references": [
       {
@@ -1267,7 +1267,7 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 HookのRulesに従う"
     ],
     "followUps": [
-      "じゃあ次だ。 共有stateが必要ならどうしますか？",
+      "じゃあ次だ。 共有stateが必要ならどうする？",
       "もう一段掘るぞ。 通常のutility functionとの違いは？"
     ],
     "references": [
@@ -1311,8 +1311,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 常に高速という保証ではない"
     ],
     "followUps": [
-      "じゃあ次だ。 Reconciliationとは何ですか？",
-      "もう一段掘るぞ。 keyは照合にどう影響しますか？"
+      "じゃあ次だ。 Reconciliationとは何だ？",
+      "もう一段掘るぞ。 keyは照合にどう影響する？"
     ],
     "references": [
       {
@@ -1338,7 +1338,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 SSRのメリット・デメリットは？",
-      "もう一段掘るぞ。 Server ComponentとSSRは同じものですか？"
+      "もう一段掘るぞ。 Server ComponentとSSRは同じものなのか？"
     ],
     "references": [
       {
@@ -1360,7 +1360,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 reactiveとの違いは？",
-      "もう一段掘るぞ。 shallowRefは何に使いますか？"
+      "もう一段掘るぞ。 shallowRefは何に使う？"
     ],
     "references": [
       {
@@ -1382,7 +1382,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 watchEffectとの違いは？",
-      "もう一段掘るぞ。 API通信ならどちらを使いますか？"
+      "もう一段掘るぞ。 API通信ならどちらを使う？"
     ],
     "references": [
       {
@@ -1429,8 +1429,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 Vueはtemplateと組み込みreactivityを提供"
     ],
     "followUps": [
-      "じゃあ次だ。 VueからReactへ移ると何が変わりますか？",
-      "もう一段掘るぞ。 状態追跡の考え方はどう違いますか？"
+      "じゃあ次だ。 VueからReactへ移ると何が変わる？",
+      "もう一段掘るぞ。 状態追跡の考え方はどう違う？"
     ],
     "references": [
       {
@@ -1456,7 +1456,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 Core Web Vitalsとは？",
-      "もう一段掘るぞ。 React Profilerで何が分かりますか？"
+      "もう一段掘るぞ。 React Profilerで何が分かる？"
     ],
     "references": [
       {
@@ -1503,7 +1503,7 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 commitはstaged contentから作られる"
     ],
     "followUps": [
-      "じゃあ次だ。 git addは単にファイル名を登録するだけですか？",
+      "じゃあ次だ。 git addは単にファイル名を登録するだけなのか？",
       "もう一段掘るぞ。 git diffとgit diff --stagedの違いは？"
     ],
     "references": [
@@ -1525,8 +1525,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 detached HEADという状態がある"
     ],
     "followUps": [
-      "じゃあ次だ。 branchを作るとcommitはコピーされますか？",
-      "もう一段掘るぞ。 detached HEADでcommitするとどうなりますか？"
+      "じゃあ次だ。 branchを作るとcommitはコピーされる？",
+      "もう一段掘るぞ。 detached HEADでcommitするとどうなる？"
     ],
     "references": [
       {
@@ -1548,7 +1548,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 fast-forward mergeとは？",
-      "もう一段掘るぞ。 共有branchをrebaseすると何が困りますか？"
+      "もう一段掘るぞ。 共有branchをrebaseすると何が困る？"
     ],
     "references": [
       {
@@ -1574,7 +1574,7 @@ export const interviewCards: InterviewCard[] = [
     ],
     "followUps": [
       "じゃあ次だ。 mergeを中止するには？",
-      "もう一段掘るぞ。 rebase中のconflictでは何が違いますか？"
+      "もう一段掘るぞ。 rebase中のconflictでは何が違う？"
     ],
     "references": [
       {
@@ -1625,8 +1625,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 fetch後なら差分を確認してから統合できる"
     ],
     "followUps": [
-      "じゃあ次だ。 pull --rebaseは何をしますか？",
-      "もう一段掘るぞ。 origin/mainとは何ですか？"
+      "じゃあ次だ。 pull --rebaseは何をする？",
+      "もう一段掘るぞ。 origin/mainとは何だ？"
     ],
     "references": [
       {
@@ -1651,7 +1651,7 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 必要な変更だけ移植する用途"
     ],
     "followUps": [
-      "じゃあ次だ。 mergeと何が違いますか？",
+      "じゃあ次だ。 mergeと何が違う？",
       "もう一段掘るぞ。 conflictした場合は？"
     ],
     "references": [
@@ -1699,8 +1699,8 @@ export const interviewCards: InterviewCard[] = [
       "最後にこれ。 CIとレビューを統合前の安全網にする"
     ],
     "followUps": [
-      "じゃあ次だ。 PRが大きくなったらどうしますか？",
-      "もう一段掘るぞ。 commitはどの粒度にしますか？"
+      "じゃあ次だ。 PRが大きくなったらどうする？",
+      "もう一段掘るぞ。 commitはどの粒度にする？"
     ],
     "references": [
       {

@@ -26,6 +26,7 @@ describe("FlashCard", () => {
     expect(screen.getByText("React / Vue / Webフロントエンド")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: card.question })).toBeInTheDocument();
     expect(screen.queryByText(card.answer)).not.toBeInTheDocument();
+    expect(screen.queryByText(card.senkuMemo)).not.toBeInTheDocument();
   });
 
   it("reveals all answer content and an official reference link", () => {
@@ -34,6 +35,8 @@ describe("FlashCard", () => {
     fireEvent.click(screen.getByRole("button", { name: "回答を見る" }));
 
     expect(screen.getByText(card.answer)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "千空メモ" })).toBeInTheDocument();
+    expect(screen.getByText(card.senkuMemo)).toBeInTheDocument();
     expect(screen.getByText(card.keyPoints[0])).toBeInTheDocument();
     expect(screen.getByText(card.followUps[0])).toBeInTheDocument();
     expect(
