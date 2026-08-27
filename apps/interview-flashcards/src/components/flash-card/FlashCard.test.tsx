@@ -8,6 +8,7 @@ const card: InterviewCard = {
   category: "frontend",
   question: "テスト用の質問ですか？",
   answer: "テスト用の回答です。",
+  senkuMemo: "テスト用の学習メモです。",
   keyPoints: ["重要なポイント"],
   followUps: ["深掘りする質問ですか？"],
   references: [
