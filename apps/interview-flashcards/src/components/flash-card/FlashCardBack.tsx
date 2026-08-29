@@ -10,12 +10,12 @@ type FlashCardBackProps = {
 
 export function FlashCardBack({ card, confidence, onConfidenceChange }: FlashCardBackProps) {
   return (
-    <div className="mt-8 space-y-8 border-t border-slate-700 pt-8">
-      <section aria-labelledby={`${card.id}-answer`}>
+    <div className="mt-8 min-w-0 space-y-8 border-t border-slate-700 pt-8">
+      <section>
         <h3 id={`${card.id}-answer`} className="text-lg font-bold text-cyan-300">
           回答例
         </h3>
-        <p className="mt-3 leading-8 text-slate-200">{card.answer}</p>
+        <p className="mt-3 break-words leading-8 text-slate-200">{card.answer}</p>
       </section>
 
       <section
@@ -28,7 +28,7 @@ export function FlashCardBack({ card, confidence, onConfidenceChange }: FlashCar
         >
           千空メモ
         </h3>
-        <p className="mt-3 leading-8 text-amber-50">{card.senkuMemo}</p>
+        <p className="mt-3 break-words leading-8 text-amber-50">{card.senkuMemo}</p>
       </section>
 
       <section aria-labelledby={`${card.id}-key-points`}>
@@ -64,7 +64,7 @@ export function FlashCardBack({ card, confidence, onConfidenceChange }: FlashCar
                 href={reference.url}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex min-h-11 items-center rounded-lg text-cyan-200 underline decoration-cyan-500 underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
+                className="inline-flex min-h-12 max-w-full items-center break-all rounded-lg text-cyan-200 underline decoration-cyan-500 underline-offset-4 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
               >
                 {reference.title}（公式情報源を開く）
                 <span className="sr-only">（新しいタブで開きます）</span>
