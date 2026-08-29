@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type { InterviewCard } from "@/data/interview-cards";
 import { FlashCard } from "./FlashCard";
 
@@ -51,5 +51,22 @@ describe("FlashCard", () => {
 
     expect(screen.getByRole("radio", { name: "🤔 少し不安" })).toBeChecked();
     expect(screen.getByRole("radio", { name: "💪 自信あり" })).not.toBeChecked();
+  });
+
+  it("records an explicit re-selection of the current confidence", () => {
+    const onConfidenceChange = vi.fn();
+    render(
+      <FlashCard
+        card={card}
+        confidence={2}
+        onConfidenceChange={onConfidenceChange}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "回答を見る" }));
+    fireEvent.click(screen.getByRole("radio", { name: "🤔 少し不安" }));
+
+    expect(onConfidenceChange).toHaveBeenCalledOnce();
+    expect(onConfidenceChange).toHaveBeenCalledWith(2);
   });
 });

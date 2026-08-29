@@ -29,8 +29,24 @@ describe("learning progress storage", () => {
     ["malformed JSON", "{"],
     ["unknown version", JSON.stringify({ version: 2, cards: progress })],
     ["invalid confidence", JSON.stringify({ version: 1, cards: { id: { confidence: 5, reviewCount: 1 } } })],
+    ["invalid timestamp", JSON.stringify({ version: 1, cards: { id: { confidence: 3, reviewCount: 1, lastReviewedAt: "not-a-date" } } })],
   ])("falls back for %s storage", (_, stored) => {
     expect(parseLearningProgress(stored)).toEqual({});
+  });
+
+  it("removes unknown fields while restoring progress", () => {
+    const stored = JSON.stringify({
+      version: 1,
+      cards: {
+        "card-one": {
+          ...progress["card-one"],
+          question: "This must not be persisted.",
+        },
+      },
+    });
+
+    expect(parseLearningProgress(stored)).toEqual(progress);
+    expect(JSON.stringify(parseLearningProgress(stored))).not.toContain("question");
   });
 
   it("falls back when reading storage throws", () => {

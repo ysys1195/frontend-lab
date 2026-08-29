@@ -20,6 +20,16 @@ function isConfidence(value: unknown): value is Confidence {
   return Number.isInteger(value) && typeof value === "number" && value >= 0 && value <= 4;
 }
 
+function isIsoTimestamp(value: unknown): value is string {
+  if (typeof value !== "string") {
+    return false;
+  }
+
+  const date = new Date(value);
+
+  return !Number.isNaN(date.getTime()) && date.toISOString() === value;
+}
+
 function isCardProgress(value: unknown): value is CardProgress {
   if (!isRecord(value)) {
     return false;
@@ -30,7 +40,7 @@ function isCardProgress(value: unknown): value is CardProgress {
     Number.isInteger(value.reviewCount) &&
     typeof value.reviewCount === "number" &&
     value.reviewCount >= 0 &&
-    (value.lastReviewedAt === undefined || typeof value.lastReviewedAt === "string")
+    (value.lastReviewedAt === undefined || isIsoTimestamp(value.lastReviewedAt))
   );
 }
 
@@ -57,7 +67,13 @@ export function parseLearningProgress(value: string | null): LearningProgress {
         return {};
       }
 
-      cards[cardId] = progress;
+      cards[cardId] = {
+        confidence: progress.confidence,
+        reviewCount: progress.reviewCount,
+        ...(progress.lastReviewedAt === undefined
+          ? {}
+          : { lastReviewedAt: progress.lastReviewedAt }),
+      };
     }
 
     return cards;

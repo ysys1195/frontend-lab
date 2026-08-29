@@ -38,6 +38,11 @@ export function ConfidenceSelector({
                 name={`${cardId}-confidence`}
                 value={option.value}
                 checked={confidence === option.value}
+                onClick={() => {
+                  if (confidence === option.value) {
+                    onChange(option.value);
+                  }
+                }}
                 onChange={() => onChange(option.value)}
                 className="size-4 accent-cyan-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300"
               />
