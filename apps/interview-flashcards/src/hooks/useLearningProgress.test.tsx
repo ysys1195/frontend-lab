@@ -22,7 +22,27 @@ describe("useLearningProgress", () => {
     await waitFor(() => expect(result.current.progress.saved?.confidence).toBe(2));
   });
 
-  it("updates confidence, timestamp and review count on every explicit selection", () => {
+  it.each([0, 1, 2, 3, 4] as const)(
+    "sets confidence %i with a timestamp and incremented review count",
+    (confidence) => {
+      const now = () => new Date("2026-08-28T09:30:00.000Z");
+      const { result } = renderHook(() => useLearningProgress({ now }));
+
+      act(() => result.current.updateConfidence("card-one", confidence));
+
+      expect(result.current.progress["card-one"]).toEqual({
+        confidence,
+        lastReviewedAt: "2026-08-28T09:30:00.000Z",
+        reviewCount: 1,
+      });
+      expect(JSON.parse(window.localStorage.getItem(LEARNING_PROGRESS_STORAGE_KEY) ?? "")).toEqual({
+        version: 1,
+        cards: result.current.progress,
+      });
+    },
+  );
+
+  it("increments review count on every explicit selection", () => {
     const now = () => new Date("2026-08-28T09:30:00.000Z");
     const { result } = renderHook(() => useLearningProgress({ now }));
 
@@ -33,10 +53,6 @@ describe("useLearningProgress", () => {
       confidence: 4,
       lastReviewedAt: "2026-08-28T09:30:00.000Z",
       reviewCount: 2,
-    });
-    expect(JSON.parse(window.localStorage.getItem(LEARNING_PROGRESS_STORAGE_KEY) ?? "")).toEqual({
-      version: 1,
-      cards: result.current.progress,
     });
   });
 });
