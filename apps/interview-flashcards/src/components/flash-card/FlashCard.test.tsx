@@ -23,6 +23,10 @@ describe("FlashCard", () => {
   it("shows the question while keeping the answer hidden initially", () => {
     render(<FlashCard card={card} />);
 
+    expect(screen.getByRole("button", { name: "回答を見る" })).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
     expect(screen.getByText("React / Vue / Webフロントエンド")).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: card.question })).toBeInTheDocument();
     expect(screen.queryByText(card.answer)).not.toBeInTheDocument();
@@ -34,6 +38,13 @@ describe("FlashCard", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "回答を見る" }));
 
+    expect(screen.getByRole("button", { name: "回答を閉じる" })).toHaveAttribute(
+      "aria-expanded",
+      "true",
+    );
+    expect(
+      screen.getByRole("region", { name: "回答例" }),
+    ).toBeInTheDocument();
     expect(screen.getByText(card.answer)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "千空メモ" })).toBeInTheDocument();
     expect(screen.getByText(card.senkuMemo)).toBeInTheDocument();
@@ -42,6 +53,19 @@ describe("FlashCard", () => {
     expect(
       screen.getByRole("link", { name: /Official documentation/ }),
     ).toHaveAttribute("href", card.references[0].url);
+  });
+
+  it("allows the answer to be collapsed again", () => {
+    render(<FlashCard card={card} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "回答を見る" }));
+    fireEvent.click(screen.getByRole("button", { name: "回答を閉じる" }));
+
+    expect(screen.getByRole("button", { name: "回答を見る" })).toHaveAttribute(
+      "aria-expanded",
+      "false",
+    );
+    expect(screen.queryByText(card.answer)).not.toBeInTheDocument();
   });
 
   it("exposes accessible confidence choices after revealing the answer", () => {

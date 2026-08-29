@@ -1,5 +1,36 @@
 import { expect, test } from "@playwright/test";
 
+const mobileViewports = [375, 390, 430] as const;
+
+for (const width of mobileViewports) {
+  test(`keeps the study screen usable without horizontal overflow at ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    await page.getByRole("button", { name: "回答を見る" }).click();
+
+    const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+    expect(scrollWidth).toBeLessThanOrEqual(width);
+    await expect(page.getByRole("button", { name: "回答を閉じる" })).toBeVisible();
+    await expect(page.getByRole("radio", { name: "💪 自信あり" })).toBeVisible();
+
+    const undersizedTargets = await page
+      .locator("button, select, a[href], label:has(input)")
+      .evaluateAll((elements) =>
+        elements
+          .filter((element) => element.getBoundingClientRect().height > 0)
+          .filter((element) => element.getBoundingClientRect().height < 44)
+          .map((element) => ({
+            element: element.tagName,
+            height: element.getBoundingClientRect().height,
+            label: element.textContent?.trim() ?? "",
+          })),
+      );
+    expect(undersizedTargets).toEqual([]);
+  });
+}
+
 test("reveals an answer and advances to the next card", async ({ page }) => {
   await page.goto("/");
 
@@ -49,4 +80,48 @@ test("filters the learning queue and updates progress", async ({ page }) => {
   await expect(page.getByText("1 / 70 問")).toBeVisible();
   await page.getByLabel("自信度フィルター").selectOption("4");
   await expect(page.getByText("カード 1 / 1")).toBeVisible();
+});
+
+test("supports primary study actions with the keyboard and exposes answer state", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const categoryFilter = page.getByLabel("カテゴリ");
+  await categoryFilter.focus();
+  await page.keyboard.press("g");
+  await expect(categoryFilter).toHaveValue("git");
+
+  const unreviewedOnly = page.getByRole("checkbox", { name: "未評価のみ" });
+  await unreviewedOnly.focus();
+  await page.keyboard.press("Space");
+  await expect(unreviewedOnly).toBeChecked();
+
+  const revealButton = page.getByRole("button", { name: "回答を見る" });
+  await revealButton.focus();
+  await expect(revealButton).toBeFocused();
+  const focusOutline = await revealButton.evaluate((element) => {
+    const styles = window.getComputedStyle(element);
+    return { style: styles.outlineStyle, width: styles.outlineWidth };
+  });
+  expect(focusOutline.style).not.toBe("none");
+  expect(focusOutline.width).not.toBe("0px");
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("button", { name: "回答を閉じる" })).toHaveAttribute(
+    "aria-expanded",
+    "true",
+  );
+
+  const confidenceOption = page.getByRole("radio", { name: "🤔 少し不安" });
+  await confidenceOption.focus();
+  await page.keyboard.press("Space");
+  await expect(page.getByText("1 / 70 問")).toBeVisible();
+  await expect(page.getByText("カード 1 / 9")).toBeVisible();
+  await expect(page.getByRole("article")).toBeFocused();
+
+  const nextCardButton = page.getByRole("button", { name: "次のカードへ" });
+  await page.keyboard.press("Shift+Tab");
+  await expect(nextCardButton).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page.getByText(/カード 2 \/ /)).toBeVisible();
 });
