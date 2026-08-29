@@ -1,10 +1,14 @@
 import type { InterviewCard } from "@/data/interview-cards";
+import type { Confidence } from "@/types/learning-progress";
+import { ConfidenceSelector } from "./ConfidenceSelector";
 
 type FlashCardBackProps = {
   card: InterviewCard;
+  confidence: Confidence;
+  onConfidenceChange: (confidence: Confidence) => void;
 };
 
-export function FlashCardBack({ card }: FlashCardBackProps) {
+export function FlashCardBack({ card, confidence, onConfidenceChange }: FlashCardBackProps) {
   return (
     <div className="mt-8 space-y-8 border-t border-slate-700 pt-8">
       <section aria-labelledby={`${card.id}-answer`}>
@@ -69,6 +73,12 @@ export function FlashCardBack({ card }: FlashCardBackProps) {
           ))}
         </ul>
       </section>
+
+      <ConfidenceSelector
+        cardId={card.id}
+        confidence={confidence}
+        onChange={onConfidenceChange}
+      />
     </div>
   );
 }

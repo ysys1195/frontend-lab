@@ -43,4 +43,13 @@ describe("FlashCard", () => {
       screen.getByRole("link", { name: /Official documentation/ }),
     ).toHaveAttribute("href", card.references[0].url);
   });
+
+  it("exposes accessible confidence choices after revealing the answer", () => {
+    render(<FlashCard card={card} confidence={2} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "回答を見る" }));
+
+    expect(screen.getByRole("radio", { name: "🤔 少し不安" })).toBeChecked();
+    expect(screen.getByRole("radio", { name: "💪 自信あり" })).not.toBeChecked();
+  });
 });

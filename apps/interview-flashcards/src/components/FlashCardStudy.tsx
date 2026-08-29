@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { InterviewCard } from "@/data/interview-cards";
+import { useLearningProgress } from "@/hooks/useLearningProgress";
 import { FlashCard } from "./flash-card/FlashCard";
 
 type FlashCardStudyProps = {
@@ -10,6 +11,7 @@ type FlashCardStudyProps = {
 
 export function FlashCardStudy({ cards }: FlashCardStudyProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { progress, updateConfidence } = useLearningProgress();
   const card = cards[currentIndex];
 
   if (!card) {
@@ -34,7 +36,12 @@ export function FlashCardStudy({ cards }: FlashCardStudyProps) {
           次のカードへ
         </button>
       </div>
-      <FlashCard key={card.id} card={card} />
+      <FlashCard
+        key={card.id}
+        card={card}
+        confidence={progress[card.id]?.confidence ?? 0}
+        onConfidenceChange={(confidence) => updateConfidence(card.id, confidence)}
+      />
     </section>
   );
 }
