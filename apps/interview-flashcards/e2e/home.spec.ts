@@ -20,6 +20,13 @@ test("reveals an answer and advances to the next card", async ({ page }) => {
     /^https:\/\//,
   );
 
+  await page.getByRole("radio", { name: "🙂 だいたいOK" }).check();
+  await expect(page.getByRole("radio", { name: "🙂 だいたいOK" })).toBeChecked();
+
+  await page.reload();
+  await page.getByRole("button", { name: "回答を見る" }).click();
+  await expect(page.getByRole("radio", { name: "🙂 だいたいOK" })).toBeChecked();
+
   await page.getByRole("button", { name: "次のカードへ" }).click();
 
   await expect(page.getByText("カード 2 / 70")).toBeVisible();
