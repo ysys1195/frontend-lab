@@ -117,9 +117,11 @@ test("supports primary study actions with the keyboard and exposes answer state"
   await page.keyboard.press("Space");
   await expect(page.getByText("1 / 70 問")).toBeVisible();
   await expect(page.getByText("カード 1 / 9")).toBeVisible();
+  await expect(page.getByRole("article")).toBeFocused();
 
   const nextCardButton = page.getByRole("button", { name: "次のカードへ" });
-  await nextCardButton.focus();
+  await page.keyboard.press("Shift+Tab");
+  await expect(nextCardButton).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page.getByText(/カード 2 \/ /)).toBeVisible();
 });

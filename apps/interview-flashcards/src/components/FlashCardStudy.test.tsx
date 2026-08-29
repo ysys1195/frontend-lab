@@ -77,9 +77,12 @@ describe("FlashCardStudy", () => {
     fireEvent.click(screen.getByRole("checkbox", { name: "未評価のみ" }));
     const firstQuestion = interviewCards[0].question;
     fireEvent.click(screen.getByRole("button", { name: "回答を見る" }));
-    fireEvent.click(screen.getByRole("radio", { name: "😣 自信なし" }));
+    const confidenceOption = screen.getByRole("radio", { name: "😣 自信なし" });
+    confidenceOption.focus();
+    fireEvent.click(confidenceOption);
 
     expect(screen.queryByRole("heading", { name: firstQuestion })).not.toBeInTheDocument();
     expect(screen.getByText("カード 1 / 69")).toBeInTheDocument();
+    expect(screen.getByRole("article")).toHaveFocus();
   });
 });
