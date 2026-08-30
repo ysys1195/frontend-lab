@@ -3,8 +3,10 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Interview Flashcards",
-  description: "技術面接対策用フラッシュカードアプリ",
+  title: "Interview Flashcards | 技術面接対策",
+  description:
+    "70問の技術面接フラッシュカードで、回答例と公式情報を確認しながら学習できるアプリです。",
+  applicationName: "Interview Flashcards",
 };
 
 type RootLayoutProps = Readonly<{
