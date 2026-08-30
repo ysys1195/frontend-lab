@@ -2,6 +2,33 @@ import { expect, test } from "@playwright/test";
 
 const mobileViewports = [375, 390, 430] as const;
 
+test("serves production metadata and the app icon", async ({ page, request }) => {
+  await page.goto("/");
+
+  await expect(page).toHaveTitle("Interview Flashcards | 技術面接対策");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+    "content",
+    "70問の技術面接フラッシュカードで、回答例と公式情報を確認しながら学習できるアプリです。",
+  );
+
+  const iconHref = await page.locator('link[rel="icon"]').getAttribute("href");
+  expect(iconHref).toBeTruthy();
+  const iconResponse = await request.get(iconHref!);
+  expect(iconResponse.ok()).toBe(true);
+  expect(iconResponse.headers()["content-type"]).toContain("image/svg+xml");
+});
+
+test("shows the dedicated 404 page for an unknown path", async ({ page }) => {
+  const response = await page.goto("/path-that-does-not-exist");
+
+  expect(response?.status()).toBe(404);
+  await expect(page.getByRole("heading", { name: "ページが見つかりません" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "学習ページへ戻る" })).toHaveAttribute(
+    "href",
+    "/",
+  );
+});
+
 for (const width of mobileViewports) {
   test(`keeps the study screen usable without horizontal overflow at ${width}px`, async ({
     page,
