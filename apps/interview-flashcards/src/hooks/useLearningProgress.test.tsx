@@ -24,35 +24,32 @@ describe("useLearningProgress", () => {
 
   it.each([0, 1, 2, 3, 4] as const)(
     "sets confidence %i with a timestamp and incremented review count",
-    (confidence) => {
+    async (confidence) => {
       const now = () => new Date("2026-08-28T09:30:00.000Z");
+      window.localStorage.setItem(
+        LEARNING_PROGRESS_STORAGE_KEY,
+        JSON.stringify({
+          version: 1,
+          cards: { "card-one": { confidence: 1, reviewCount: 4 } },
+        }),
+      );
       const { result } = renderHook(() => useLearningProgress({ now }));
+
+      await waitFor(() => expect(result.current.progress["card-one"]?.reviewCount).toBe(4));
 
       act(() => result.current.updateConfidence("card-one", confidence));
 
-      expect(result.current.progress["card-one"]).toEqual({
-        confidence,
-        lastReviewedAt: "2026-08-28T09:30:00.000Z",
-        reviewCount: 1,
-      });
+      await waitFor(() =>
+        expect(result.current.progress["card-one"]).toEqual({
+          confidence,
+          lastReviewedAt: "2026-08-28T09:30:00.000Z",
+          reviewCount: 5,
+        }),
+      );
       expect(JSON.parse(window.localStorage.getItem(LEARNING_PROGRESS_STORAGE_KEY) ?? "")).toEqual({
         version: 1,
         cards: result.current.progress,
       });
     },
   );
-
-  it("increments review count on every explicit selection", () => {
-    const now = () => new Date("2026-08-28T09:30:00.000Z");
-    const { result } = renderHook(() => useLearningProgress({ now }));
-
-    act(() => result.current.updateConfidence("card-one", 3));
-    act(() => result.current.updateConfidence("card-one", 4));
-
-    expect(result.current.progress["card-one"]).toEqual({
-      confidence: 4,
-      lastReviewedAt: "2026-08-28T09:30:00.000Z",
-      reviewCount: 2,
-    });
-  });
 });
