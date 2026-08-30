@@ -17,6 +17,24 @@ const progress: LearningProgress = {
 };
 
 describe("filterCards", () => {
+  it("filters by category alone", () => {
+    expect(
+      filterCards(cards, progress, {
+        ...initialCardFilters,
+        category: "git",
+      }).map((card) => card.id),
+    ).toEqual(["c", "d"]);
+  });
+
+  it("filters by confidence alone", () => {
+    expect(
+      filterCards(cards, progress, {
+        ...initialCardFilters,
+        confidence: 2,
+      }).map((card) => card.id),
+    ).toEqual(["c"]);
+  });
+
   it("combines category and confidence conditions", () => {
     expect(
       filterCards(cards, progress, {
@@ -43,6 +61,16 @@ describe("filterCards", () => {
         reviewRecommendedOnly: true,
       }).map((card) => card.id),
     ).toEqual(["a", "b", "c"]);
+  });
+
+  it("returns an empty list when no card matches all conditions", () => {
+    expect(
+      filterCards(cards, progress, {
+        ...initialCardFilters,
+        category: "network",
+        confidence: 4,
+      }),
+    ).toEqual([]);
   });
 });
 

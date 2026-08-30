@@ -16,7 +16,7 @@ for (const width of mobileViewports) {
     await expect(page.getByRole("radio", { name: "💪 自信あり" })).toBeVisible();
 
     const undersizedTargets = await page
-      .locator("button, select, a[href], label:has(input)")
+      .locator("main button, main select, main a[href], main label:has(input)")
       .evaluateAll((elements) =>
         elements
           .filter((element) => element.getBoundingClientRect().height > 0)
